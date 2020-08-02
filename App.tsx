@@ -9,7 +9,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/components/Home/HomeScreen';
-import TodoScreen from './src/components/Home/TodoScreen';
+import TodoScreen from './src/components/List/TodoScreen';
 
 const Stack = createStackNavigator();
 

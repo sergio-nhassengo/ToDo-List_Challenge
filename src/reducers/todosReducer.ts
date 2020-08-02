@@ -1,6 +1,6 @@
-import { TODOS } from '../constants';
+import { TODOS, Todo } from '../types';
 
-const todosReducer = (state = [], action) => {
+const todosReducer = (state: Todo[] = [], action: any): Todo[] => {
     switch (action.type) {
         case TODOS.LOAD_SUCCESS:
             return [...state, ...action.todos];
@@ -16,5 +16,5 @@ const todosReducer = (state = [], action) => {
             return state;
     }
 };
-
+ 
 export default todosReducer;

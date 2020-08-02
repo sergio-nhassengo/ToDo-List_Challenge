@@ -1,24 +1,25 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import { Todo } from '../types';
 
 const URL = 'https://jsonplaceholder.typicode.com/todos/';
 
 export const fetchTodos = async () => {
-    const response = await axios.get(URL);
+    const response: AxiosResponse<Todo> = await axios.get(URL);
     const data = await response.data;
     if(response.status >= 400) {
-        throw new Error(data.errors);
+        throw new Error();
     }
     return data;
 } 
 
-export const updateTodo = async todo => {
-    const response = await axios.patch(`${URL}${todo.id}`, {
+export const updateTodo = async (todo: Todo) => {
+    const response: AxiosResponse<Todo> = await axios.patch(`${URL}${todo.id}`, {
         completed: !todo.completed
     })
     
     const data = await response.data;
     if(response.status >= 400) {
-        throw new Error(data.errors);
+        throw new Error();
     }
     return data;
 }

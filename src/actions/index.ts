@@ -1,25 +1,25 @@
-import { TODOS } from '../constants';
+import { TODOS, Todo } from '../types';
 
 const loadTodos = () => ({
     type: TODOS.LOAD
 });
 
-const setTodos = todos => ({
+const setTodos = (todos: Todo[]) => ({
     type: TODOS.LOAD_SUCCESS,
     todos
 });
 
-const updatedTodo = todo => ({
+const updatedTodo = (todo: Todo) => ({
     type: TODOS.UPDATE_TODO,
     todo
 });
 
-const updateTodoSuccess = todo => ({
+const updateTodoSuccess = (todo: Todo) => ({
 type: TODOS.UPDATE_TODO,
 todo
 })
 
-const setError = error => ({
+const setError = (error: any) => ({
     type: TODOS.LOAD_FAIL,
     error
 });

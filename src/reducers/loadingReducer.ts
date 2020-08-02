@@ -1,6 +1,6 @@
-import { TODOS } from '../constants';
+import { TODOS } from '../types';
 
-const loadingReducer = (state = false, action) => {
+const loadingReducer = (state: boolean = false, action: any) => {
     switch (action.type) {
         case TODOS.LOAD:
             return true;
@@ -13,5 +13,5 @@ const loadingReducer = (state = false, action) => {
             return state;
     }
 };
-
+ 
 export default loadingReducer;

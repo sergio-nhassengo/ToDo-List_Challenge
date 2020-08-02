@@ -1,6 +1,6 @@
-import { TODOS } from '../constants';
+import { TODOS } from '../types';
 
-const errorReducer = (state = null, action) => {
+const errorReducer = (state = null, action: any) => {
     switch (action.type) {
         case TODOS.LOAD_FAIL:
             return action.error;
@@ -12,5 +12,5 @@ const errorReducer = (state = null, action) => {
             return state;
     }
 };
-
+ 
 export default errorReducer;

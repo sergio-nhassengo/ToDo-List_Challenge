@@ -1,16 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, View, Button, Text } from 'react-native';
 
-const HomeScreen = ({ navigation }) => {
+interface Props {
+  navigation: any
+}
+
+const HomeScreen: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.mainContainer}>
-    <Text style={styles.text}>Todo List!</Text>
-    <Button 
-    color="#045b68" 
-    title="Proximo" onPress={() =>
-        navigation.navigate('Todo List')}/>
-  </View>
-    
+      <Text style={styles.text}>Todo List!</Text>
+      <Button
+        color="#045b68"
+        title="Proximo" onPress={() => navigation.navigate('Todo List')} />
+    </View>
+
   );
 };
 

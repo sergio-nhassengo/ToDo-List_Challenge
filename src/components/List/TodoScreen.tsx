@@ -1,18 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Dispatch, AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { FlatList } from 'react-native-gesture-handler';
-import ListItem from '../List/ListItem';
+import ListItem from './ListItem';
 import { StyleSheet, Text, View } from 'react-native';
 import { loadTodos, updatedTodo } from '../../actions';
 import { ProgressBar } from '@react-native-community/progress-bar-android';
+import { Todo } from '../../types';
 
-class TodoScreen extends Component {
+interface RootState {
+  isLoading: boolean; 
+  todos: Todo[];
+  error: any;
+}
+
+interface OwnProps {
+  loadTodos: () => void;
+  updateTodo: (item: Todo) => void;
+}
+
+type Props = RootState & OwnProps;
+
+class TodoScreen extends React.PureComponent<Props> {
 
   componentDidMount() {
     this.props.loadTodos();
   }
 
   render() {
+    console.log(this.props.todos);
     return (
       this.props.isLoading ?
       <View style={styles.loading}>
@@ -20,15 +36,16 @@ class TodoScreen extends Component {
         <ProgressBar color="#045b68" />
       </View>
       :
-      <FlatList 
+      <FlatList<any> 
         style={styles.listContainer}
         data={this.props.todos}
+        initialNumToRender={7}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={(info) => (
+        renderItem={({item}) => (
           <ListItem
-          setCompletion={() => this.props.updateTodo(info.item)}
-          title={info.item.title}
-          completed={info.item.completed}
+          setCompletion={() => this.props.updateTodo(item)}
+          title={item.title}
+          completed={item.completed}
           />
           )}
       />
@@ -56,15 +73,15 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ isLoading, todos, error }) => ({
-    isLoading,
-    todos,
-    error
+const mapStateToProps = (state: any) => ({
+    isLoading: state.isLoading,
+    todos: state.todos,
+    error: state.error
 });
 
-const masDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   loadTodos: () => dispatch(loadTodos()),
-  updateTodo: (todo) => dispatch(updatedTodo(todo))
+  updateTodo: (todo: Todo) => dispatch(updatedTodo(todo))
 });
 
-export default connect (mapStateToProps, masDispatchToProps)(TodoScreen);
+export default connect<RootState> (mapStateToProps, mapDispatchToProps)(TodoScreen);
